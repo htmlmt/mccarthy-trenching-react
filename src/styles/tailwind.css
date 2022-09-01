@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	article p a {
+		@apply mt-2 text-base font-bold leading-6 text-blue-500 hover:text-blue-700 active:text-blue-900;
+	}
+}
