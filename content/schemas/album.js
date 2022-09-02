@@ -31,6 +31,11 @@ export default {
 			type: 'date',
 		},
 		{
+			name: 'about',
+			title: 'About',
+			type: 'blockContent',
+		},
+		{
 			name: 'credits',
 			title: 'Credits',
 			type: 'blockContent',
