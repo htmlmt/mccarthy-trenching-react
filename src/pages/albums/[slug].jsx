@@ -118,18 +118,33 @@ function AboutSection({ album }) {
 	}
 
 	return (
-		<section className="mt-12 hidden lg:block">
-			<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
-				<TinyWaveFormIcon
-					colors={['fill-green-300', 'fill-blue-300']}
-					className="h-2.5 w-2.5"
-				/>
+		<div>
+			<section className="mt-12">
+				<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+					<TinyWaveFormIcon
+						colors={['fill-green-300', 'fill-blue-300']}
+						className="h-2.5 w-2.5"
+					/>
 
-				<span className="ml-2.5">Credits</span>
-			</h2>
+					<span className="ml-2.5">Credits</span>
+				</h2>
 
-			<PortableText value={album.credits} components={components} />
-		</section>
+				<PortableText value={album.credits} components={components} />
+			</section>
+
+			<section className="mt-12">
+				<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+					<TinyWaveFormIcon
+						colors={['fill-blue-300', 'fill-green-300']}
+						className="h-2.5 w-2.5"
+					/>
+
+					<span className="ml-2.5">Notes</span>
+				</h2>
+
+				<PortableText value={album.notes} components={components} />
+			</section>
+		</div>
 	)
 }
 
@@ -168,7 +183,9 @@ export default function Album({ album, tracks }) {
 						<div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
 					</div>
 
-					<AboutSection className="mt-12 hidden lg:block" album={album} />
+					<div className="hidden lg:block">
+						<AboutSection className="mt-12" album={album} />
+					</div>
 				</div>
 			</header>
 
@@ -205,6 +222,7 @@ const albumQuery = groq`
 	*[_type == "album" && slug.current == $slug][0]{
 		"artwork": artwork.asset->url,
 		credits,
+		notes,
 		releaseDate,
 		title,
 		tracks[]-> {
