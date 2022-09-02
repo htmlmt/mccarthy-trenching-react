@@ -31,8 +31,8 @@ export default {
 			type: 'date',
 		},
 		{
-			name: 'about',
-			title: 'About',
+			name: 'notes',
+			title: 'Notes',
 			type: 'blockContent',
 		},
 		{
