@@ -151,23 +151,27 @@ export default function Album({ album, tracks }) {
 					)}`}
 				/>
 			</Head>
+
 			<header className="bg-slate-50 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
 				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-12 lg:px-8 xl:px-12">
-					<div className="relative mx-auto block w-48 overflow-hidden rounded-lg bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl">
+					<div className="relative mx-auto block w-48 overflow-hidden rounded-sm bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 lg:w-auto">
 						<Image
-							className="w-full"
-							src={`${album.artwork}`}
 							alt=""
-							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
-							priority
-							width="320"
+							className="w-full"
 							height="320"
+							priority
+							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
+							src={`${album.artwork}`}
+							width="320"
 						/>
-						<div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 sm:rounded-xl lg:rounded-2xl" />
+
+						<div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
 					</div>
+
 					<AboutSection className="mt-12 hidden lg:block" album={album} />
 				</div>
 			</header>
+
 			<main className="border-t border-slate-200 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
 				<div className="relative">
 					<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
@@ -176,6 +180,7 @@ export default function Album({ album, tracks }) {
 								{album.title}
 							</h1>
 						</Container>
+
 						{album.tracks && (
 							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
 								{album.tracks.map((track) => (
@@ -186,6 +191,7 @@ export default function Album({ album, tracks }) {
 					</div>
 				</div>
 			</main>
+
 			<footer className="border-t border-slate-200 bg-slate-50 py-10 pb-40 sm:py-16 sm:pb-32 lg:hidden">
 				<div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4">
 					<AboutSection album={album} />

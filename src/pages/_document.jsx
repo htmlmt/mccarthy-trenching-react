@@ -5,13 +5,19 @@ export default function Document() {
 		<Html className="bg-white antialiased" lang="en">
 			<Head>
 				<link
-					rel="preconnect"
-					href="https://cdn.fontshare.com"
 					crossOrigin="anonymous"
+					href="https://cdn.fontshare.com"
+					rel="preconnect"
 				/>
 				<link
-					rel="stylesheet"
 					href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap"
+					rel="stylesheet"
+				/>
+				<link href="https://fonts.googleapis.com" rel="preconnect" />
+				<link crossOrigin href="https://fonts.gstatic.com" rel="preconnect" />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"
+					rel="stylesheet"
 				/>
 			</Head>
 			<body>

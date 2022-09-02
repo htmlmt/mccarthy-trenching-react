@@ -7,6 +7,7 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: ['Satoshi', ...defaultTheme.fontFamily.sans],
+				display: ['Abril Fatface', 'cursive'],
 			},
 			spacing: {
 				18: '4.5rem',

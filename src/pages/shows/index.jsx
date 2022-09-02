@@ -1,70 +1,85 @@
 import Head from 'next/head'
-import Image from 'next/future/image'
 
 import groq from 'groq'
 import client from '../../client'
 
-import showsImage from '@/images/mccarthy-trenching-shows.jpeg'
+import { AboutSection } from '@/components/AboutSection'
 import { Container } from '@/components/Container'
-import { FormattedDate } from '@/components/FormattedDate'
+import { FormattedTime } from '@/components/FormattedTime'
 import { PortableText } from '@portabletext/react'
+import { Sidebar } from '@/components/Sidebar'
+
+import { CalendarIcon, MapPinIcon } from '@heroicons/react/20/solid'
 
 function ShowEntry({ show }) {
-	let date = new Date(show.startTime)
+	let time = new Date(show.startTime)
+
+	const components = {
+		block: {
+			normal: ({ children }) => (
+				<p className="mt-2 text-base leading-7 text-slate-700">{children}</p>
+			),
+			h2: ({ children }) => (
+				<h2 className="mt-2 text-lg font-bold text-slate-900">{children}</h2>
+			),
+		},
+	}
 
 	return (
-		<article
-			aria-labelledby={`show-${show.id}-title`}
-			className="py-10 sm:py-12"
-		>
-			<Container>
-				<div className="flex flex-col items-start">
-					<h2
-						id={`show-${show.id}-title`}
-						className="mt-2 text-lg font-bold text-slate-900"
-					>
+		<Container>
+			<li key={show._id} className="relative flex space-x-6 py-6 xl:static">
+				<div className="flex-auto">
+					<h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">
 						{show.title}
-					</h2>
+					</h3>
 
-					<FormattedDate
-						date={date}
-						className="order-first font-mono text-sm leading-7 text-slate-500"
-					/>
+					<dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">
+						<div className="flex items-start space-x-3">
+							<dt className="mt-0.5">
+								<span className="sr-only">Start time</span>
 
-					<p className="mt-1 text-base leading-7 text-slate-700">
-						{show.venue}
-					</p>
+								<CalendarIcon
+									aria-hidden="true"
+									className="h-5 w-5 text-gray-400"
+								/>
+							</dt>
+
+							<dd>
+								<FormattedTime time={time} />
+							</dd>
+						</div>
+
+						<div className="mt-2 flex items-start space-x-3 xl:mt-0 xl:ml-3.5 xl:border-l xl:border-gray-400 xl:border-opacity-50 xl:pl-3.5">
+							<dt className="mt-0.5">
+								<span className="sr-only">Venue</span>
+
+								<MapPinIcon
+									aria-hidden="true"
+									className="h-5 w-5 text-gray-400"
+								/>
+							</dt>
+
+							<dd>{show.venue}</dd>
+						</div>
+					</dl>
 				</div>
-			</Container>
-		</article>
+			</li>
+		</Container>
 	)
 }
 
-export default function Shows({ shows }) {
+export default function Shows({ pastShows, upcomingShows }) {
 	return (
 		<>
 			<Head>
-				<title>Shows</title>
-				<meta name="description" content="Description" />
+				<title>McCarthy Trenching - Shows</title>
+				<meta
+					name="description"
+					content="Folk band from Omaha, with Dan McCarthy on guitar or piano and James Maakestad on upright bass."
+				/>
 			</Head>
 
-			<header className="bg-slate-50 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
-				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-12 lg:px-8 xl:px-12">
-					<div className="relative mx-auto block w-48 overflow-hidden rounded-lg bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl">
-						<Image
-							alt=""
-							className="w-full"
-							height="320"
-							priority
-							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
-							src={showsImage}
-							width="320"
-						/>
-
-						<div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 sm:rounded-xl lg:rounded-2xl" />
-					</div>
-				</div>
-			</header>
+			<Sidebar />
 
 			<main className="border-t border-slate-200 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
 				<div className="relative">
@@ -74,26 +89,60 @@ export default function Shows({ shows }) {
 								Shows
 							</h1>
 						</Container>
-						<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
-							{shows.map((show) => (
-								<ShowEntry key={show._id} show={show} />
-							))}
-						</div>
 					</div>
+
+					{upcomingShows.length > 0 && (
+						<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
+							<Container>
+								<h2 className="text-lg font-bold text-slate-900">Upcoming</h2>
+							</Container>
+
+							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
+								{upcomingShows.map((show) => (
+									<ShowEntry key={show._id} show={show} />
+								))}
+							</div>
+						</div>
+					)}
+
+					{pastShows.length > 0 && (
+						<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
+							<Container>
+								<h2 className="text-lg font-bold text-slate-900">Past</h2>
+							</Container>
+
+							<ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
+								{pastShows.map((show) => (
+									<ShowEntry key={show._id} show={show} />
+								))}
+							</ol>
+						</div>
+					)}
 				</div>
 			</main>
+
+			<footer className="border-t border-slate-200 bg-slate-50 py-10 pb-40 sm:py-16 sm:pb-32 lg:hidden">
+				<div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4">
+					<AboutSection />
+				</div>
+			</footer>
 		</>
 	)
 }
 
 export async function getStaticProps() {
-	const shows = await client.fetch(groq`
+	const pastShows = await client.fetch(groq`
+		*[_type == "show" && startTime < now()] | order(startTime desc)
+    `)
+
+	const upcomingShows = await client.fetch(groq`
 		*[_type == "show" && startTime > now()] | order(startTime desc)
     `)
 
 	return {
 		props: {
-			shows,
+			pastShows,
+			upcomingShows,
 		},
 	}
 }

@@ -27,11 +27,10 @@ export default {
 			title: 'Venue',
 			type: 'string',
 		},
-	],
-
-	preview: {
-		select: {
-			title: 'title',
+		{
+			name: 'body',
+			title: 'Body',
+			type: 'blockContent',
 		},
-	},
+	],
 }

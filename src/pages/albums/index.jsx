@@ -5,29 +5,39 @@ import Link from 'next/link'
 import groq from 'groq'
 import client from '../../client'
 
-import albumsImage from '@/images/mccarthy-trenching-albums.jpeg'
+import { AboutSection } from '@/components/AboutSection'
 import { Container } from '@/components/Container'
+import { Sidebar } from '@/components/Sidebar'
 
 function AlbumEntry({ album }) {
 	return (
-		<article
-			aria-labelledby={`album-${album.id}-title`}
-			className="py-10 sm:py-12"
-		>
-			<Container>
-				<div className="flex flex-col items-start">
-					<Link href={`/albums/${album.slug.current}`}>
-						<h2
-							id={`album-${album._id}-title`}
-							className="mt-2 text-lg font-bold text-slate-900"
-						>
-							{album.title}
-						</h2>
+		<article aria-labelledby={`album-${album.id}-title`}>
+			<div className="flex flex-col items-start">
+				<Link className="w-full" href={`/albums/${album.slug.current}`}>
+					<div class="relative mx-auto block w-full overflow-hidden rounded-sm bg-slate-200 shadow-md shadow-slate-200">
+						<Image
+							alt=""
+							className="w-full"
+							height="320"
+							priority
+							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
+							src={album.artwork}
+							width="320"
+						/>
 
-						<div className="mt-4"></div>
-					</Link>
-				</div>
-			</Container>
+						<div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
+					</div>
+
+					<h2
+						id={`album-${album._id}-title`}
+						className="mt-2 text-lg font-bold text-slate-900"
+					>
+						{album.title}
+					</h2>
+
+					<div className="mt-4"></div>
+				</Link>
+			</div>
 		</article>
 	)
 }
@@ -37,26 +47,13 @@ export default function Albums({ albums }) {
 		<>
 			<Head>
 				<title>McCarthy Trenching - Albums</title>
-				<meta name="description" content="Description" />
+				<meta
+					name="description"
+					content="Folk band from Omaha, with Dan McCarthy on guitar or piano and James Maakestad on upright bass."
+				/>
 			</Head>
 
-			<header className="bg-slate-50 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
-				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-12 lg:px-8 xl:px-12">
-					<div className="relative mx-auto block w-48 overflow-hidden rounded-lg bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl">
-						<Image
-							alt=""
-							className="w-full"
-							height="320"
-							priority
-							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
-							src={albumsImage}
-							width="320"
-						/>
-
-						<div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 sm:rounded-xl lg:rounded-2xl" />
-					</div>
-				</div>
-			</header>
+			<Sidebar />
 
 			<main className="border-t border-slate-200 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
 				<div className="relative">
@@ -67,21 +64,36 @@ export default function Albums({ albums }) {
 							</h1>
 						</Container>
 
-						<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
-							{albums.map((album) => (
-								<AlbumEntry key={album._id} album={album} />
-							))}
+						<div className="sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
+							<Container>
+								<div className="grid grid-cols-2 gap-4 py-10 sm:grid-cols-3 sm:py-12">
+									{albums.map((album) => (
+										<AlbumEntry key={album._id} album={album} />
+									))}
+								</div>
+							</Container>
 						</div>
 					</div>
 				</div>
 			</main>
+
+			<footer className="border-t border-slate-200 bg-slate-50 py-10 pb-40 sm:py-16 sm:pb-32 lg:hidden">
+				<div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4">
+					<AboutSection />
+				</div>
+			</footer>
 		</>
 	)
 }
 
 export async function getStaticProps() {
 	const albums = await client.fetch(groq`
-		*[_type == "album" && releaseDate < now()] | order(releaseDate desc)
+		*[_type == "album" && releaseDate < now()] | order(releaseDate desc) {
+			"artwork": artwork.asset->url,
+			releaseDate,
+			slug,
+			title,
+		}
     `)
 
 	return {
