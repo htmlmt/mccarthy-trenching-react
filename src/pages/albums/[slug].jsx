@@ -119,31 +119,35 @@ function AboutSection({ album }) {
 
 	return (
 		<div>
-			<section className="mt-12">
-				<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
-					<TinyWaveFormIcon
-						colors={['fill-green-300', 'fill-blue-300']}
-						className="h-2.5 w-2.5"
-					/>
+			{album.credits && (
+				<section className="mt-12">
+					<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+						<TinyWaveFormIcon
+							colors={['fill-green-300', 'fill-blue-300']}
+							className="h-2.5 w-2.5"
+						/>
 
-					<span className="ml-2.5">Credits</span>
-				</h2>
+						<span className="ml-2.5">Credits</span>
+					</h2>
 
-				<PortableText value={album.credits} components={components} />
-			</section>
+					<PortableText value={album.credits} components={components} />
+				</section>
+			)}
 
-			<section className="mt-12">
-				<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
-					<TinyWaveFormIcon
-						colors={['fill-blue-300', 'fill-green-300']}
-						className="h-2.5 w-2.5"
-					/>
+			{album.notes && (
+				<section className="mt-12">
+					<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+						<TinyWaveFormIcon
+							colors={['fill-blue-300', 'fill-green-300']}
+							className="h-2.5 w-2.5"
+						/>
 
-					<span className="ml-2.5">Notes</span>
-				</h2>
+						<span className="ml-2.5">Notes</span>
+					</h2>
 
-				<PortableText value={album.notes} components={components} />
-			</section>
+					<PortableText value={album.notes} components={components} />
+				</section>
+			)}
 		</div>
 	)
 }
