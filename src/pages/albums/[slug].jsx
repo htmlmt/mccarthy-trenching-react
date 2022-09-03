@@ -188,7 +188,7 @@ export default function Album({ album, tracks }) {
 			</Head>
 
 			<header className="bg-slate-50 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
-				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-12 lg:px-8 xl:px-12">
+				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-14 lg:px-8 xl:px-12">
 					<div className="relative mx-auto block w-48 overflow-hidden rounded-sm bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 lg:w-auto">
 						<Image
 							alt=""
