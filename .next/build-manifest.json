@@ -44,6 +44,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/shows.js"
+    ],
+    "/tracks/[slug]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/tracks/[slug].js"
     ]
   },
   "ampFirstPages": []

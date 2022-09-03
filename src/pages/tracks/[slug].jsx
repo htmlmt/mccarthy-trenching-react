@@ -39,18 +39,53 @@ function AboutSection({ album }) {
 	}
 
 	return (
-		<section className="mt-12 hidden lg:block">
-			<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
-				<TinyWaveFormIcon
-					colors={['fill-green-300', 'fill-blue-300']}
-					className="h-2.5 w-2.5"
-				/>
+		<div>
+			{album.credits && (
+				<section className="mt-12">
+					<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+						<TinyWaveFormIcon
+							colors={['fill-green-300', 'fill-blue-300']}
+							className="h-2.5 w-2.5"
+						/>
 
-				<span className="ml-2.5">Credits</span>
-			</h2>
+						<span className="ml-2.5">Credits</span>
+					</h2>
 
-			<PortableText value={album.credits} components={components} />
-		</section>
+					<PortableText value={album.credits} components={components} />
+				</section>
+			)}
+
+			{album.notes && (
+				<section className="mt-12">
+					<h2 className="flex items-center font-mono text-sm font-medium leading-7 text-slate-900">
+						<TinyWaveFormIcon
+							colors={['fill-blue-300', 'fill-green-300']}
+							className="h-2.5 w-2.5"
+						/>
+
+						<span className="ml-2.5">Notes</span>
+					</h2>
+
+					<PortableText value={album.notes} components={components} />
+				</section>
+			)}
+		</div>
+	)
+}
+
+function BandcampIcon(props) {
+	return (
+		<svg aria-hidden="true" viewBox="0 0 32 32" {...props}>
+			<path d="M21.81,25.4H0L10.19,6.6h21.81l-10.19,18.8" />
+		</svg>
+	)
+}
+
+function SpotifyIcon(props) {
+	return (
+		<svg aria-hidden="true" viewBox="0 0 32 32" {...props}>
+			<path d="M15.8 3a12.8 12.8 0 1 0 0 25.6 12.8 12.8 0 0 0 0-25.6Zm5.87 18.461a.8.8 0 0 1-1.097.266c-3.006-1.837-6.787-2.252-11.244-1.234a.796.796 0 1 1-.355-1.555c4.875-1.115 9.058-.635 12.432 1.427a.8.8 0 0 1 .265 1.096Zm1.565-3.485a.999.999 0 0 1-1.371.33c-3.44-2.116-8.685-2.728-12.755-1.493a1 1 0 0 1-.58-1.91c4.65-1.41 10.428-.726 14.378 1.7a1 1 0 0 1 .33 1.375l-.002-.002Zm.137-3.629c-4.127-2.45-10.933-2.675-14.871-1.478a1.196 1.196 0 1 1-.695-2.291c4.52-1.374 12.037-1.107 16.785 1.711a1.197 1.197 0 1 1-1.221 2.06" />
+		</svg>
 	)
 }
 
@@ -70,12 +105,23 @@ export default function Track({ track }) {
 		<>
 			<Head>
 				<title>{`${track.title} - ${track.album.title}`}</title>
-				{/* <meta name="description" content={track.description} /> */}
+				<meta
+					name="description"
+					content={`Released ${new Date(track.album.releaseDate).toLocaleString(
+						'en-US',
+						{
+							timeZone: 'UTC',
+							year: 'numeric',
+							month: 'short',
+							day: 'numeric',
+						}
+					)}`}
+				/>
 			</Head>
 
 			<header className="bg-slate-50 lg:fixed lg:inset-y-0 lg:left-0 lg:flex lg:w-112 lg:items-start lg:overflow-y-auto xl:w-120">
 				<div className="relative z-10 mx-auto px-4 pb-4 pt-10 sm:px-6 md:max-w-2xl md:px-4 lg:min-h-full lg:flex-auto lg:border-x lg:border-slate-200 lg:py-14 lg:px-8 xl:px-12">
-					<div className="relative mx-auto block w-48 overflow-hidden rounded-lg bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 sm:rounded-xl lg:w-auto lg:rounded-2xl">
+					<div className="relative mx-auto block w-48 overflow-hidden rounded-sm bg-slate-200 shadow-xl shadow-slate-200 sm:w-64 lg:w-auto">
 						<Image
 							alt=""
 							className="w-full"
@@ -86,10 +132,60 @@ export default function Track({ track }) {
 							width="320"
 						/>
 
-						<div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-black/10 sm:rounded-xl lg:rounded-2xl" />
+						<div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
 					</div>
 
-					<AboutSection className="mt-12 hidden lg:block" album={track.album} />
+					{(track.album.spotifyLink || track.album.bandcampLink) && (
+						<section className="mt-10 lg:mt-12">
+							<h2 className="sr-only flex items-center font-mono text-sm font-medium leading-7 text-slate-900 lg:not-sr-only">
+								<TinyWaveFormIcon
+									colors={['fill-indigo-300', 'fill-blue-300']}
+									className="h-2.5 w-2.5"
+								/>
+
+								<span className="ml-2.5">Links</span>
+							</h2>
+
+							<div className="h-px bg-gradient-to-r from-slate-200/0 via-slate-200 to-slate-200/0 lg:hidden" />
+
+							<ul
+								role="list"
+								className="mt-4 flex justify-center gap-10 text-base font-medium leading-7 text-slate-700 sm:gap-8 lg:flex-col lg:gap-4"
+							>
+								{track.album.spotifyLink && (
+									<li key="spotify" className="flex">
+										<Link
+											aria-label={`${track.album.title} on Spotify`}
+											className="group flex items-center"
+											href={track.album.spotifyLink}
+											target="_blank"
+										>
+											<SpotifyIcon className="h-8 w-8 fill-slate-400 group-hover:fill-slate-600" />
+											<span className="hidden sm:ml-3 sm:block">Spotify</span>
+										</Link>
+									</li>
+								)}
+
+								{track.album.bandcampLink && (
+									<li key="bandcamp" className="flex">
+										<Link
+											aria-label={`${track.album.title} on Bandcamp`}
+											className="group flex items-center"
+											href={track.album.bandcampLink}
+											target="_blank"
+										>
+											<BandcampIcon className="h-8 w-8 fill-slate-400 group-hover:fill-slate-600" />
+											<span className="hidden sm:ml-3 sm:block">Bandcamp</span>
+										</Link>
+									</li>
+								)}
+							</ul>
+						</section>
+					)}
+
+					<div className="hidden lg:block">
+						<AboutSection className="mt-12" album={track.album} />
+					</div>
 				</div>
 			</header>
 
@@ -127,6 +223,12 @@ export default function Track({ track }) {
 					</article>
 				</div>
 			</main>
+
+			<footer className="border-t border-slate-200 bg-slate-50 py-10 pb-40 sm:py-16 sm:pb-32 lg:hidden">
+				<div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4">
+					<AboutSection album={track.album} />
+				</div>
+			</footer>
 		</>
 	)
 }
@@ -135,8 +237,11 @@ const trackQuery = groq`
 	*[_type == "track" && slug.current == $slug][0]{
 		album-> {
 			"artwork": artwork.asset->url,
+			bandcampLink,
 			credits,
+			notes,
 			slug,
+			spotifyLink,
 			title,
 		},
 		lyrics,
