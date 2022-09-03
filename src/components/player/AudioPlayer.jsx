@@ -51,6 +51,7 @@ export function AudioPlayer() {
 					<div className="md:hidden">
 						<PlayButton player={player} size="small" />
 					</div>
+					<div className="w-6 md:hidden" />
 					<Slider
 						label="Current time"
 						maxValue={player.duration}
