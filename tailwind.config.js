@@ -4,6 +4,12 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
 	content: ['./src/**/*.{js,jsx}'],
 	theme: {
+		aspectRatio: {
+			9: '9',
+			15: '15',
+			16: '16',
+			20: '20',
+		},
 		extend: {
 			fontFamily: {
 				sans: ['Satoshi', ...defaultTheme.fontFamily.sans],
@@ -15,6 +21,9 @@ module.exports = {
 				120: '30rem',
 			},
 		},
+	},
+	corePlugins: {
+		aspectRatio: false,
 	},
 	plugins: [
 		require('@tailwindcss/aspect-ratio'),

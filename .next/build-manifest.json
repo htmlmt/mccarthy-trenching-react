@@ -40,11 +40,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/albums/[slug].js"
     ],
-    "/shows": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/shows.js"
-    ],
     "/tracks/[slug]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

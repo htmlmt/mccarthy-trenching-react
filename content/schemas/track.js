@@ -28,6 +28,21 @@ export default {
 			type: 'file',
 		},
 		{
+			name: 'videoEmbed',
+			title: 'Video Embed',
+			type: 'string',
+		},
+		{
+			name: 'videoAspectWidth',
+			title: 'Video Aspect Width',
+			type: 'string',
+		},
+		{
+			name: 'videoAspectHeight',
+			title: 'Video Aspect Height',
+			type: 'string',
+		},
+		{
 			name: 'album',
 			type: 'reference',
 			to: [

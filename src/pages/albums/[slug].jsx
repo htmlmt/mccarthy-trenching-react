@@ -92,10 +92,10 @@ function TrackEntry({ track, number }) {
 						{track.lyrics && (
 							<Link
 								href={`/tracks/${track.slug.current}`}
-								className="flex items-center text-sm font-bold leading-6 text-blue-500 hover:text-blue-700 active:text-blue-900"
+								className="text-sm font-bold leading-6 text-blue-500 hover:text-blue-700 active:text-blue-900"
 								aria-label={`Lyrics for ${track.title}`}
 							>
-								Lyrics
+								Lyrics {track.videoEmbed && <span>(with Video)</span>}
 							</Link>
 						)}
 					</div>
@@ -304,6 +304,7 @@ const albumQuery = groq`
 			slug,
 			title,
 			"trackUrl": file.asset->url,
+			videoEmbed,
 		},
 	}
 `
