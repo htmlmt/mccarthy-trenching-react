@@ -218,12 +218,12 @@ export default function Track({ track }) {
 
 							{track.videoEmbed && (
 								<div
-									className={`aspect-w-${track.videoAspectWidth} aspect-h-${track.videoAspectHeight} w-full`}
+									className={`aspect-${track.videoAspectWidth}-${track.videoAspectHeight}`}
 									dangerouslySetInnerHTML={{ __html: track.videoEmbed }}
 								></div>
 							)}
 
-							<div className="prose prose-slate mt-14 [&>h2]:mt-12 [&>h2]:flex [&>h2]:items-center [&>h2]:font-mono [&>h2]:text-sm [&>h2]:font-medium [&>h2]:leading-7 [&>h2]:text-slate-900 [&>h2]:before:mr-3 [&>h2]:before:h-3 [&>h2]:before:w-1.5 [&>h2]:before:rounded-r-full [&>h2]:before:bg-cyan-200 [&>ul]:mt-6 [&>ul]:list-['\2013\20'] [&>ul]:pl-5 [&>h2:nth-of-type(3n+2)]:before:bg-indigo-200 [&>h2:nth-of-type(3n)]:before:bg-violet-200">
+							<div className="prose prose-slate mt-12 [&>h2]:mt-12 [&>h2]:flex [&>h2]:items-center [&>h2]:font-mono [&>h2]:text-sm [&>h2]:font-medium [&>h2]:leading-7 [&>h2]:text-slate-900 [&>h2]:before:mr-3 [&>h2]:before:h-3 [&>h2]:before:w-1.5 [&>h2]:before:rounded-r-full [&>h2]:before:bg-cyan-200 [&>ul]:mt-6 [&>ul]:list-['\2013\20'] [&>ul]:pl-5 [&>h2:nth-of-type(3n+2)]:before:bg-indigo-200 [&>h2:nth-of-type(3n)]:before:bg-violet-200">
 								<PortableText value={track.lyrics} />
 							</div>
 						</Container>
@@ -255,6 +255,8 @@ const trackQuery = groq`
 		title,
 		"trackUrl": file.asset->url,
 		videoEmbed,
+		videoAspectHeight,
+		videoAspectWidth,
 	}
 `
 

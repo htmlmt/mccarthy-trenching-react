@@ -4,12 +4,6 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
 	content: ['./src/**/*.{js,jsx}'],
 	theme: {
-		aspectRatio: {
-			9: '9',
-			15: '15',
-			16: '16',
-			20: '20',
-		},
 		extend: {
 			fontFamily: {
 				sans: ['Satoshi', ...defaultTheme.fontFamily.sans],
