@@ -6,34 +6,34 @@ import client from '../../client'
 import { AboutSection } from '@/components/AboutSection'
 import { Container } from '@/components/Container'
 import { FormattedTime } from '@/components/FormattedTime'
-import { PortableText } from '@portabletext/react'
 import { Sidebar } from '@/components/Sidebar'
 
 import { CalendarIcon, MapPinIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 function ShowEntry({ show }) {
 	let time = new Date(show.startTime)
-
-	const components = {
-		block: {
-			normal: ({ children }) => (
-				<p className="mt-2 text-base leading-7 text-slate-700">{children}</p>
-			),
-			h2: ({ children }) => (
-				<h2 className="mt-2 text-lg font-bold text-slate-900">{children}</h2>
-			),
-		},
-	}
 
 	return (
 		<Container>
 			<li key={show._id} className="relative flex space-x-6 py-6 xl:static">
 				<div className="flex-auto">
-					<h3 className="pr-10 font-semibold text-gray-900 xl:pr-0">
-						{show.title}
-					</h3>
+					{show.link && (
+						<Link
+							className="text-base font-bold leading-6 text-blue-500 hover:text-blue-700 active:text-blue-900"
+							href={show.link}
+						>
+							<h3 className="pr-10 font-semibold xl:pr-0">{show.title}</h3>
+						</Link>
+					)}
 
-					<dl className="mt-2 flex flex-col text-gray-500 xl:flex-row">
+					{!show.link && (
+						<h3 className="pr-10 text-base font-semibold text-gray-900 xl:pr-0">
+							{show.title}
+						</h3>
+					)}
+
+					<dl className="text-md mt-2 flex flex-col text-gray-500 xl:flex-row">
 						<div className="flex items-start space-x-3">
 							<dt className="mt-0.5">
 								<span className="sr-only">Start time</span>
@@ -83,7 +83,7 @@ export default function Shows({ pastShows, upcomingShows }) {
 
 			<main className="border-t border-slate-200 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
 				<div className="relative">
-					<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
+					<div className="py-8 lg:border-b lg:border-slate-100 lg:pt-12">
 						<Container>
 							<h1 className="text-2xl font-bold leading-7 text-slate-900">
 								Shows
@@ -92,12 +92,12 @@ export default function Shows({ pastShows, upcomingShows }) {
 					</div>
 
 					{upcomingShows.length > 0 && (
-						<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
+						<div className="pt-8 pb-4 lg:pt-12">
 							<Container>
 								<h2 className="text-lg font-bold text-slate-900">Upcoming</h2>
 							</Container>
 
-							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
+							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8">
 								{upcomingShows.map((show) => (
 									<ShowEntry key={show._id} show={show} />
 								))}
@@ -106,7 +106,7 @@ export default function Shows({ pastShows, upcomingShows }) {
 					)}
 
 					{pastShows.length > 0 && (
-						<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
+						<div className="pt-8 pb-4 lg:pt-12">
 							<Container>
 								<h2 className="text-lg font-bold text-slate-900">Past</h2>
 							</Container>

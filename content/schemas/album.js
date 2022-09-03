@@ -55,5 +55,15 @@ export default {
 				},
 			],
 		},
+		{
+			name: 'spotifyLink',
+			title: 'Spotify Link',
+			type: 'url',
+		},
+		{
+			name: 'bandcampLink',
+			title: 'Bandcamp Link',
+			type: 'url',
+		},
 	],
 }

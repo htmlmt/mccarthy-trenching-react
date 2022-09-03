@@ -28,9 +28,9 @@ export default {
 			type: 'string',
 		},
 		{
-			name: 'body',
-			title: 'Body',
-			type: 'blockContent',
+			name: 'link',
+			title: 'Link',
+			type: 'string',
 		},
 	],
 }

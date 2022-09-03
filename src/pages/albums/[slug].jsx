@@ -41,7 +41,7 @@ function TinyWaveFormIcon({ colors = [], ...props }) {
 	)
 }
 
-function TrackEntry({ track }) {
+function TrackEntry({ track, number }) {
 	let audioPlayerData = useMemo(
 		() => ({
 			title: track.title,
@@ -64,7 +64,7 @@ function TrackEntry({ track }) {
 						id={`track-${track._id}-title`}
 						className="mt-2 text-lg font-bold text-slate-900"
 					>
-						{track.title}
+						{number}. {track.title}
 					</h2>
 
 					<div className="mt-4 flex items-center gap-4">
@@ -152,6 +152,22 @@ function AboutSection({ album }) {
 	)
 }
 
+function BandcampIcon(props) {
+	return (
+		<svg aria-hidden="true" viewBox="0 0 32 32" {...props}>
+			<path d="M21.81,25.4H0L10.19,6.6h21.81l-10.19,18.8" />
+		</svg>
+	)
+}
+
+function SpotifyIcon(props) {
+	return (
+		<svg aria-hidden="true" viewBox="0 0 32 32" {...props}>
+			<path d="M15.8 3a12.8 12.8 0 1 0 0 25.6 12.8 12.8 0 0 0 0-25.6Zm5.87 18.461a.8.8 0 0 1-1.097.266c-3.006-1.837-6.787-2.252-11.244-1.234a.796.796 0 1 1-.355-1.555c4.875-1.115 9.058-.635 12.432 1.427a.8.8 0 0 1 .265 1.096Zm1.565-3.485a.999.999 0 0 1-1.371.33c-3.44-2.116-8.685-2.728-12.755-1.493a1 1 0 0 1-.58-1.91c4.65-1.41 10.428-.726 14.378 1.7a1 1 0 0 1 .33 1.375l-.002-.002Zm.137-3.629c-4.127-2.45-10.933-2.675-14.871-1.478a1.196 1.196 0 1 1-.695-2.291c4.52-1.374 12.037-1.107 16.785 1.711a1.197 1.197 0 1 1-1.221 2.06" />
+		</svg>
+	)
+}
+
 export default function Album({ album, tracks }) {
 	return (
 		<>
@@ -187,6 +203,54 @@ export default function Album({ album, tracks }) {
 						<div className="absolute inset-0 rounded-sm ring-1 ring-inset ring-black/10" />
 					</div>
 
+					{(album.spotifyLink || album.bandcampLink) && (
+						<section className="mt-10 lg:mt-12">
+							<h2 className="sr-only flex items-center font-mono text-sm font-medium leading-7 text-slate-900 lg:not-sr-only">
+								<TinyWaveFormIcon
+									colors={['fill-indigo-300', 'fill-blue-300']}
+									className="h-2.5 w-2.5"
+								/>
+
+								<span className="ml-2.5">Links</span>
+							</h2>
+
+							<div className="h-px bg-gradient-to-r from-slate-200/0 via-slate-200 to-slate-200/0 lg:hidden" />
+
+							<ul
+								role="list"
+								className="mt-4 flex justify-center gap-10 text-base font-medium leading-7 text-slate-700 sm:gap-8 lg:flex-col lg:gap-4"
+							>
+								{album.spotifyLink && (
+									<li key="spotify" className="flex">
+										<Link
+											aria-label={`${album.title} on Spotify`}
+											className="group flex items-center"
+											href={album.spotifyLink}
+											target="_blank"
+										>
+											<SpotifyIcon className="h-8 w-8 fill-slate-400 group-hover:fill-slate-600" />
+											<span className="hidden sm:ml-3 sm:block">Spotify</span>
+										</Link>
+									</li>
+								)}
+
+								{album.bandcampLink && (
+									<li key="bandcamp" className="flex">
+										<Link
+											aria-label={`${album.title} on Bandcamp`}
+											className="group flex items-center"
+											href={album.bandcampLink}
+											target="_blank"
+										>
+											<BandcampIcon className="h-8 w-8 fill-slate-400 group-hover:fill-slate-600" />
+											<span className="hidden sm:ml-3 sm:block">Bandcamp</span>
+										</Link>
+									</li>
+								)}
+							</ul>
+						</section>
+					)}
+
 					<div className="hidden lg:block">
 						<AboutSection className="mt-12" album={album} />
 					</div>
@@ -204,8 +268,12 @@ export default function Album({ album, tracks }) {
 
 						{album.tracks && (
 							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100">
-								{album.tracks.map((track) => (
-									<TrackEntry key={track._id} track={track} />
+								{album.tracks.map((track, index) => (
+									<TrackEntry
+										key={track._id}
+										track={track}
+										number={index + 1}
+									/>
 								))}
 							</div>
 						)}
@@ -225,9 +293,11 @@ export default function Album({ album, tracks }) {
 const albumQuery = groq`
 	*[_type == "album" && slug.current == $slug][0]{
 		"artwork": artwork.asset->url,
+		bandcampLink,
 		credits,
 		notes,
 		releaseDate,
+		spotifyLink,
 		title,
 		tracks[]-> {
 			lyrics,

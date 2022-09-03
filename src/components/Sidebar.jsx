@@ -55,7 +55,7 @@ export function Sidebar() {
 							className="h-2.5 w-2.5"
 						/>
 
-						<span className="ml-2.5">Listen</span>
+						<span className="ml-2.5">Links</span>
 					</h2>
 
 					<div className="h-px bg-gradient-to-r from-slate-200/0 via-slate-200 to-slate-200/0 lg:hidden" />
