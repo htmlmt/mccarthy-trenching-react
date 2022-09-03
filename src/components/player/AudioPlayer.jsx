@@ -70,10 +70,8 @@ export function AudioPlayer() {
 							player.pause()
 						}}
 					/>
-					<div className="flex items-center gap-4">
-						<div className="hidden items-center md:flex">
-							<MuteButton player={player} />
-						</div>
+					<div className="hidden items-center items-center gap-4 md:flex">
+						<MuteButton player={player} />
 					</div>
 				</div>
 			</div>
