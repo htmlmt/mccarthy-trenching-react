@@ -83,41 +83,41 @@ export default function Shows({ pastShows, upcomingShows }) {
 
 			<main className="border-t border-slate-200 lg:relative lg:mb-28 lg:ml-112 lg:border-t-0 xl:ml-120">
 				<div className="relative">
-					<div className="py-8 lg:border-b lg:border-slate-100 lg:pt-12">
+					<div className="pt-16 pb-12 sm:pb-4 lg:pt-12">
 						<Container>
 							<h1 className="text-2xl font-bold leading-7 text-slate-900">
 								Shows
 							</h1>
 						</Container>
-					</div>
 
-					{upcomingShows.length > 0 && (
-						<div className="pt-8 pb-4 lg:pt-12">
-							<Container>
-								<h2 className="text-lg font-bold text-slate-900">Upcoming</h2>
-							</Container>
+						{upcomingShows.length > 0 && (
+							<div className="pt-10 sm:mt-4 lg:mt-8 lg:border-t lg:border-slate-100 lg:pt-12">
+								<Container>
+									<h2 className="text-lg font-bold text-slate-900">Upcoming</h2>
+								</Container>
 
-							<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8">
-								{upcomingShows.map((show) => (
-									<ShowEntry key={show._id} show={show} />
-								))}
+								<div className="divide-y divide-slate-100 sm:mt-4 lg:mt-8">
+									{upcomingShows.map((show) => (
+										<ShowEntry key={show._id} show={show} />
+									))}
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 
-					{pastShows.length > 0 && (
-						<div className="pt-8 pb-4 lg:pt-12">
-							<Container>
-								<h2 className="text-lg font-bold text-slate-900">Past</h2>
-							</Container>
+						{pastShows.length > 0 && (
+							<div className="pt-10 lg:pt-12">
+								<Container>
+									<h2 className="text-lg font-bold text-slate-900">Past</h2>
+								</Container>
 
-							<ol className="mt-4 divide-y divide-gray-100 text-sm leading-6 lg:col-span-7 xl:col-span-8">
-								{pastShows.map((show) => (
-									<ShowEntry key={show._id} show={show} />
-								))}
-							</ol>
-						</div>
-					)}
+								<ol className="divide-y divide-slate-100 sm:mt-4 lg:mt-8">
+									{pastShows.map((show) => (
+										<ShowEntry key={show._id} show={show} />
+									))}
+								</ol>
+							</div>
+						)}
+					</div>
 				</div>
 			</main>
 
