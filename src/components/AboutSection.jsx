@@ -11,7 +11,7 @@ export function AboutSection(props) {
 				<span className="ml-2.5">About</span>
 			</h2>
 			<p className="mt-2 text-base leading-7 text-slate-700">
-				Folk band from Omaha, with Dan McCarthy on guitar or piano, James Maakestad on upright bass and  and Kevin Donahue on drums.
+				Folk band from Omaha, with Dan McCarthy on guitar or piano, James Maakestad on upright bass and Kevin Donahue on drums.
 			</p>
 		</section>
 	)

@@ -58,7 +58,7 @@ export default function Home({ posts }) {
 				<title>McCarthy Trenching - News</title>
 				<meta
 					name="description"
-					content="Folk band from Omaha, with Dan McCarthy on guitar or piano, James Maakestad on upright bass and  and Kevin Donahue on drums."
+					content="Folk band from Omaha, with Dan McCarthy on guitar or piano, James Maakestad on upright bass and Kevin Donahue on drums."
 				/>
 			</Head>
 
