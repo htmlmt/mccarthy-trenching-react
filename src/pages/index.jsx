@@ -3,8 +3,8 @@ import Head from 'next/head'
 import groq from 'groq'
 import client from '../client'
 
-import { AboutSection } from '@/components/AboutSection'
 import { Container } from '@/components/Container'
+import { Footer } from '@/components/Footer'
 import { FormattedDate } from '@/components/FormattedDate'
 import { PortableText } from '@portabletext/react'
 import { Sidebar } from '@/components/Sidebar'
@@ -82,11 +82,7 @@ export default function Home({ posts }) {
 				</div>
 			</main>
 
-			<footer className="border-t border-slate-200 bg-slate-50 py-10 pb-40 sm:py-16 sm:pb-32 lg:hidden">
-				<div className="mx-auto px-4 sm:px-6 md:max-w-2xl md:px-4">
-					<AboutSection />
-				</div>
-			</footer>
+			<Footer />
 		</>
 	)
 }
