@@ -75,7 +75,7 @@ export default function Shows({ pastShows, upcomingShows }) {
 				<title>McCarthy Trenching - Shows</title>
 				<meta
 					name="description"
-					content="Folk band from Omaha, with Dan McCarthy on guitar or piano and James Maakestad on upright bass."
+					content="Folk band from Omaha, with Dan McCarthy on guitar or piano, James Maakestad on upright bass and  and Kevin Donahue on drums."
 				/>
 			</Head>
 
