@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/future/image'
+import { sanityLoader } from '@/lib/sanityLoader'
 import Link from 'next/link'
 
 import groq from 'groq'
@@ -19,6 +20,7 @@ function AlbumEntry({ album }) {
 							alt=""
 							className="w-full"
 							height="320"
+							loader={sanityLoader}
 							priority
 							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
 							src={album.artwork}

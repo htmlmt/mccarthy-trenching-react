@@ -34,6 +34,7 @@ export function Sidebar() {
 						priority
 						sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
 						src={sidebarImage}
+						unoptimized
 						width="320"
 					/>
 
