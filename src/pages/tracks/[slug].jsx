@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/future/image'
+import { sanityLoader } from '@/lib/sanityLoader'
 
 import groq from 'groq'
 import client from '../../client'
@@ -126,6 +127,7 @@ export default function Track({ track }) {
 							alt=""
 							className="w-full"
 							height="320"
+							loader={sanityLoader}
 							priority
 							sizes="(min-width: 1024px) 20rem, (min-width: 640px) 16rem, 12rem"
 							src={`${track.album.artwork}`}
